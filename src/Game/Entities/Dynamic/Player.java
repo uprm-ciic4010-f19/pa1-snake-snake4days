@@ -19,6 +19,8 @@ public class Player {
     public int yCoord;
 
     public int moveCounter;
+    
+    public int i;
 
     public String direction;//is your first name one?
 
@@ -35,9 +37,9 @@ public class Player {
 
     public void tick(){
         moveCounter++;
-        if(moveCounter>=5) {
+        if(moveCounter>=i) {
             checkCollisionAndMove();
-            moveCounter=0;
+            moveCounter=1;
         }
         if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_UP)){
             direction="Up";
@@ -48,11 +50,22 @@ public class Player {
         }if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_RIGHT)){
             direction="Right";
         }
+        // adds tail at the end of the snake when you press N
         if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_N)) {
         	lenght ++;
         	handler.getWorld().body.addLast(new Tail(xCoord, yCoord, handler));
         }
-
+        
+        //Snake goes faster
+        if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_EQUALS)) {
+        	i--;
+        }
+        
+        //Snake goes slower
+        if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_MINUS)) {
+        	i++;
+        }
+        
     }
 
     public void checkCollisionAndMove(){
@@ -99,7 +112,7 @@ public class Player {
         if(!handler.getWorld().body.isEmpty()) {
             handler.getWorld().playerLocation[handler.getWorld().body.getLast().x][handler.getWorld().body.getLast().y] = false;
             handler.getWorld().body.removeLast();
-            handler.getWorld().body.addFirst(new Tail(x, y,handler));
+            handler.getWorld().body.addFirst(new Tail(x, y, handler));
         }
 
     }
