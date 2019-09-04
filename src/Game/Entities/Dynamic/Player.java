@@ -20,7 +20,9 @@ public class Player {
 
     public int moveCounter;
     
-    public int i;
+    public int i; //moveCounter boundary variable for debugging
+    
+    public double score;
 
     public String direction;//is your first name one?
 
@@ -32,6 +34,7 @@ public class Player {
         direction= "Right";
         justAte = false;
         lenght= 1;
+        score = 0;
 
     }
 
@@ -107,6 +110,7 @@ public class Player {
 
         if(handler.getWorld().appleLocation[xCoord][yCoord]){
             Eat();
+            score += Math.sqrt(2 * score + 1); // adds score when snake eats apple
         }
 
         if(!handler.getWorld().body.isEmpty()) {
@@ -114,6 +118,7 @@ public class Player {
             handler.getWorld().body.removeLast();
             handler.getWorld().body.addFirst(new Tail(x, y, handler));
         }
+        
 
     }
 
@@ -122,6 +127,10 @@ public class Player {
         int R = r.nextInt(256);
         int G = r.nextInt(256);
         int B = r.nextInt(256);
+        g.setFont(new Font("Futura LT", Font.BOLD, 20));
+        g.setColor(Color.BLACK);
+        g.drawString("Score: " + (int) score, 630, 20);
+        
         for (int i = 0; i < handler.getWorld().GridWidthHeightPixelCount; i++) {
             for (int j = 0; j < handler.getWorld().GridWidthHeightPixelCount; j++) {
                 g.setColor(new Color(R,G,B));
