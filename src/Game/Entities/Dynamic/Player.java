@@ -20,17 +20,18 @@ public class Player {
 
     public int moveCounter;
     
-    public int i; //moveCounter boundary variable for debugging
+    public int speedBoundary; //moveCounter boundary variable for debugging
     
     public double score;
 
     public String direction;//is your first name one?
 
-    public Player(Handler handler){
-        this.handler = handler;
+    public Player(Handler handler){    	
+    	this.handler = handler;
         xCoord = 0;
         yCoord = 0;
         moveCounter = 0;
+        speedBoundary = 5; //initial speed
         direction= "Right";
         justAte = false;
         lenght= 1;
@@ -40,7 +41,7 @@ public class Player {
 
     public void tick(){
         moveCounter++;
-        if(moveCounter>=i) {
+        if(moveCounter>=speedBoundary) {
             checkCollisionAndMove();
             moveCounter=1;
         }
@@ -59,14 +60,14 @@ public class Player {
         	handler.getWorld().body.addLast(new Tail(xCoord, yCoord, handler));
         }
         
-        //Snake goes faster
+        //Snake goes faster when "=" aka "+" is pressed
         if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_EQUALS)) {
-        	i--;
+        	speedBoundary--;
         }
         
-        //Snake goes slower
+        //Snake goes slower when "-" is pressed
         if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_MINUS)) {
-        	i++;
+        	speedBoundary++;
         }
         
     }
@@ -111,6 +112,7 @@ public class Player {
         if(handler.getWorld().appleLocation[xCoord][yCoord]){
             Eat();
             score += Math.sqrt(2 * score + 1); // adds score when snake eats apple
+            speedBoundary -= 0 + 1; //increases speed each time the snake eats
         }
 
         if(!handler.getWorld().body.isEmpty()) {
