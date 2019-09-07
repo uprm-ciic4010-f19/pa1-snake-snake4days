@@ -1,8 +1,6 @@
 package Game.Entities.Dynamic;
 
 import Main.Handler;
-import jdk.nashorn.internal.ir.SetSplitState;
-
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.Random;
@@ -78,7 +76,7 @@ public class Player {
 			State.setState(handler.getGame().pauseState); 
 		}
 
-		//G key calls Game over
+		//G key calls Game over for debugging
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_G)) {
 			State.setState(handler.getGame().gameOverState); 
 		}
@@ -133,6 +131,16 @@ public class Player {
 			handler.getWorld().playerLocation[handler.getWorld().body.getLast().x][handler.getWorld().body.getLast().y] = false;
 			handler.getWorld().body.removeLast();
 			handler.getWorld().body.addFirst(new Tail(x, y, handler));
+		}
+		
+		if (lenght > 1) {
+		 for (int i = 0; i < handler.getWorld().body.size(); i++) {
+			if (handler.getWorld().body.get(i).x == xCoord && handler.getWorld().body.get(i).y == yCoord) {
+				kill();
+				State.setState(handler.getGame().gameOverState);
+			}
+		}
+			
 		}
 
 
