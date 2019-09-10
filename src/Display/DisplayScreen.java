@@ -28,6 +28,7 @@ public class DisplayScreen {
     }
 
     private void createDisplay(){
+    	
         frame = new JFrame(title);
         frame.setSize(width, height);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -42,13 +43,13 @@ public class DisplayScreen {
             e.printStackTrace();
         }
 
-        Color purple = new Color(81, 66, 122); //Creates new purple color instance in RGB
+        Color grey = new Color(245, 245, 245); //Creates new grey color instance in RGB
         canvas = new Canvas();
         canvas.setPreferredSize(new Dimension(width, height));
         canvas.setMaximumSize(new Dimension(width, height));
         canvas.setMinimumSize(new Dimension(width, height));
         canvas.setFocusable(false);
-        canvas.setBackground(purple);
+        canvas.setBackground(grey);
 
         frame.add(canvas);
         frame.pack();

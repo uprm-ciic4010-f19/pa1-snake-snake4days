@@ -52,11 +52,11 @@ public class Images {
             Exit[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/Exit.png"));
             Exit[1] = ImageIO.read(getClass().getResourceAsStream("/Buttons/ExitP.png"));
 
-            //For new Exit button
+            //For new True button
             True[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/boolean/True.png"));
             True[1] = ImageIO.read(getClass().getResourceAsStream("/Buttons/boolean/TrueGP.png"));
             
-            //For new Exit button
+            //For new False button
             False[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/boolean/False.png"));
             False[1] = ImageIO.read(getClass().getResourceAsStream("/Buttons/boolean/FalseRP.png"));
             
