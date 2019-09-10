@@ -1,6 +1,8 @@
 package Game.Entities.Dynamic;
 
 import Main.Handler;
+import Main.Launch;
+
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.Random;
@@ -41,6 +43,12 @@ public class Player {
 	}
 
 	public void tick(){
+		
+		//if settings set to hard
+		if (Launch.isHard()) {
+			speedBoundary = 1; //changes speed boundary and snakes goes FAST
+		}
+		
 		moveCounter++;
 		if(moveCounter>=speedBoundary) {
 			checkCollisionAndMove();
@@ -147,17 +155,27 @@ public class Player {
 	}
 
 	public void render(Graphics g,Boolean[][] playeLocation){
+		
+		//random colors generator
 		Random r = new Random();
 		int R = r.nextInt(256);
 		int G = r.nextInt(256);
 		int B = r.nextInt(256);
+		
+		//score board
 		g.setFont(new Font("Futura LT", Font.BOLD, 20));
 		g.setColor(Color.BLACK);
 		g.drawString("Score: " + (int) score, 630, 20);
 
 		for (int i = 0; i < handler.getWorld().GridWidthHeightPixelCount; i++) {
 			for (int j = 0; j < handler.getWorld().GridWidthHeightPixelCount; j++) {
-				g.setColor(new Color(R,G,B));
+				
+				//if setting set to true
+				if (Launch.isSolidColor()) {
+					g.setColor(Color.green); //sets snake color to green
+				} else {
+					g.setColor(new Color(R,G,B)); //otherwise snake has random colors
+				}
 
 				if(playeLocation[i][j]||handler.getWorld().appleLocation[i][j]){
 					g.fillRect((i*handler.getWorld().GridPixelsize),

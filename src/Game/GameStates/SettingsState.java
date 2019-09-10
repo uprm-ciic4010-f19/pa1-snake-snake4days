@@ -1,12 +1,16 @@
 package Game.GameStates;
 
 
+import Main.GameSetUp;
 import Main.Handler;
+import Main.Launch;
 import Resources.Images;
 import UI.UIImageButton;
 import UI.UIManager;
 
 import java.awt.*;
+
+import com.sun.media.jfxmedia.AudioClip;
 
 public class SettingsState extends State {
 
@@ -20,34 +24,34 @@ public class SettingsState extends State {
         //Snake Color Booleans
         uiManager.addObjects(new UIImageButton(handler.getWidth()/2 + 5, handler.getHeight()/2 - handler.getHeight()/3 + 33, 103, 81, Images.True, () -> {
             handler.getMouseManager().setUimanager(null);
-            State.setState(handler.getGame().menuState);
+            Launch.setSolidColor(true);
         }));
         
         uiManager.addObjects(new UIImageButton(handler.getWidth()/2 + 117 + 23, handler.getHeight()/2 - handler.getHeight()/3 + 33, 117, 81, Images.False, () -> {
             handler.getMouseManager().setUimanager(null);
-            State.setState(handler.getGame().menuState);
+            Launch.setSolidColor(false);
         }));
         
         //Difficulty Booleans
         uiManager.addObjects(new UIImageButton(handler.getWidth()/2 - 43, handler.getHeight()/2 - handler.getHeight()/5 + 12, 103, 81, Images.True, () -> {
             handler.getMouseManager().setUimanager(null);
-            State.setState(handler.getGame().menuState);
+            Launch.setHard(true);
         }));
         
         uiManager.addObjects(new UIImageButton(handler.getWidth()/2 + 117 - 23, handler.getHeight()/2 - handler.getHeight()/5 + 12, 117, 81, Images.False, () -> {
             handler.getMouseManager().setUimanager(null);
-            State.setState(handler.getGame().menuState);
+            Launch.setHard(false);
         }));
         
         //Music booleans
         uiManager.addObjects(new UIImageButton(handler.getWidth()/2 - 120, handler.getHeight()/2 - handler.getHeight()/7 + 43, 103, 81, Images.True, () -> {
             handler.getMouseManager().setUimanager(null);
-            State.setState(handler.getGame().menuState);
+            GameSetUp.getAudioClip().start(); //start music
         }));
         
         uiManager.addObjects(new UIImageButton(handler.getWidth()/2 - 120 + 117 + 23, handler.getHeight()/2 - handler.getHeight()/7 + 43, 117, 81, Images.False, () -> {
             handler.getMouseManager().setUimanager(null);
-            State.setState(handler.getGame().menuState);
+            GameSetUp.getAudioClip().stop(); //stop music
         }));
         
         //Exit Button

@@ -55,9 +55,9 @@ public class GameSetUp implements Runnable {
     private AudioInputStream audioStream;
     private AudioFormat format;
     private DataLine.Info info;
-    private Clip audioClip;
+    private static Clip audioClip;
 
-    private BufferedImage loading;
+	private BufferedImage loading;
 
     public GameSetUp(String title, int width, int height){
 
@@ -217,5 +217,14 @@ public class GameSetUp implements Runnable {
     public int getHeight(){
         return height;
     }
+    
+    
+    public static Clip getAudioClip() {
+		return audioClip;
+	}
+
+	public void setAudioClip(Clip audioClip) {
+		GameSetUp.audioClip = audioClip;
+	}
 }
 
