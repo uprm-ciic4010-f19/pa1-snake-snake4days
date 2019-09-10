@@ -30,6 +30,16 @@ public class MenuState extends State {
                 State.setState(handler.getGame().gameState);
             }
         }));
+        
+        //new Settings button
+        uiManager.addObjects(new UIImageButton(handler.getWidth()/2 + 63, handler.getHeight()/2 + (handler.getHeight()/3), 130, 127, Images.BSettings, new ClickListlener() {
+            @Override
+            public void onClick() {
+                handler.getMouseManager().setUimanager(null);
+                handler.getGame().reStart();
+                State.setState(handler.getGame().settingsState);
+            }
+        }));
     }
 
     @Override
