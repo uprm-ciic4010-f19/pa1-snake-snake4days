@@ -46,12 +46,12 @@ public class SettingsState extends State {
         //Music booleans
         uiManager.addObjects(new UIImageButton(handler.getWidth()/2 - 120, handler.getHeight()/2 - handler.getHeight()/7 + 43, 103, 81, Images.True, () -> {
             handler.getMouseManager().setUimanager(null);
-            GameSetUp.getAudioClip().start(); //start music
+            GameSetUp.getAudioClip().stop(); //start music
         }));
         
         uiManager.addObjects(new UIImageButton(handler.getWidth()/2 - 120 + 117 + 23, handler.getHeight()/2 - handler.getHeight()/7 + 43, 117, 81, Images.False, () -> {
             handler.getMouseManager().setUimanager(null);
-            GameSetUp.getAudioClip().stop(); //stop music
+            GameSetUp.getAudioClip().start(); //stop music
         }));
         
         //Exit Button
