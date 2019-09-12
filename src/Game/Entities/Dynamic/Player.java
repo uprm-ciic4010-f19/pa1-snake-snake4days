@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.Random;
 
+import Game.Entities.Static.Apple;
 import Game.GameStates.State;
 
 /**
@@ -25,7 +26,11 @@ public class Player {
 
 	public double score;
 
+	public double steps; //counts the steps the snake made
+
 	public String direction; //is your first name one?
+	
+	public static Color appleColor = Color.RED;
 
 	public Player(Handler handler){    	
 		this.handler = handler;
@@ -37,6 +42,7 @@ public class Player {
 		justAte = false;
 		lenght= 1;
 		score = 0;
+		steps = 0;
 
 	}
 
@@ -45,6 +51,7 @@ public class Player {
 		if(moveCounter>=speedBoundary) {
 			checkCollisionAndMove();
 			moveCounter=1;
+			steps++;
 		}
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_UP) && (direction != "Down")){
 			direction="Up";
@@ -80,6 +87,7 @@ public class Player {
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_G)) {
 			State.setState(handler.getGame().gameOverState); 
 		}
+		checkApple();
 
 	}
 
@@ -121,30 +129,52 @@ public class Player {
 		handler.getWorld().playerLocation[xCoord][yCoord]=true;
 
 
-		if(handler.getWorld().appleLocation[xCoord][yCoord]){
+		if(handler.getWorld().appleLocation[xCoord][yCoord] && Apple.isGood()){
 			Eat();
+			this.setJustAte(true);
 			score += Math.sqrt(2 * score + 1); // adds score when snake eats apple
 			speedBoundary -= 0 + 1; //increases speed each time the snake eats
 		}
+		if(handler.getWorld().appleLocation[xCoord][yCoord] && !Apple.isGood()){
+			Eat();
+			this.setJustAte(true);
+			
+			
+		}
+
 
 		if(!handler.getWorld().body.isEmpty()) {
 			handler.getWorld().playerLocation[handler.getWorld().body.getLast().x][handler.getWorld().body.getLast().y] = false;
 			handler.getWorld().body.removeLast();
 			handler.getWorld().body.addFirst(new Tail(x, y, handler));
 		}
-		
+
 		if (lenght > 1) {
-		 for (int i = 0; i < handler.getWorld().body.size(); i++) {
-			if (handler.getWorld().body.get(i).x == xCoord && handler.getWorld().body.get(i).y == yCoord) {
-				kill();
-				State.setState(handler.getGame().gameOverState);
+			for (int i = 0; i < handler.getWorld().body.size(); i++) {
+				if (handler.getWorld().body.get(i).x == xCoord && handler.getWorld().body.get(i).y == yCoord) {
+					kill();
+					State.setState(handler.getGame().gameOverState);
+				}
 			}
-		}
-			
+
 		}
 
 
 	}
+
+	public void checkApple() {
+		if(steps > 400) {
+			Apple.setGood(false);
+			setAppleColor(new Color(139,69,19));
+		}
+		if(handler.getWorld().player.justAte) { // resets the steps 
+			steps = 0;
+			setJustAte(false);
+			setAppleColor(Color.RED);
+		}
+
+	}
+	
 
 	public void render(Graphics g,Boolean[][] playeLocation){
 		Random r = new Random();
@@ -157,9 +187,16 @@ public class Player {
 
 		for (int i = 0; i < handler.getWorld().GridWidthHeightPixelCount; i++) {
 			for (int j = 0; j < handler.getWorld().GridWidthHeightPixelCount; j++) {
-				g.setColor(new Color(R,G,B));
 
-				if(playeLocation[i][j]||handler.getWorld().appleLocation[i][j]){
+				if(playeLocation[i][j]){
+					g.setColor(new Color(R,G,B));
+					g.fillRect((i*handler.getWorld().GridPixelsize),
+							(j*handler.getWorld().GridPixelsize),
+							handler.getWorld().GridPixelsize,
+							handler.getWorld().GridPixelsize);
+				}
+				if(handler.getWorld().appleLocation[i][j]) {
+					g.setColor(appleColor);
 					g.fillRect((i*handler.getWorld().GridPixelsize),
 							(j*handler.getWorld().GridPixelsize),
 							handler.getWorld().GridPixelsize,
@@ -296,5 +333,8 @@ public class Player {
 
 	public void setJustAte(boolean justAte) {
 		this.justAte = justAte;
+	}
+	public static void setAppleColor(Color c) {
+		appleColor = c;
 	}
 }
