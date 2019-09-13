@@ -43,7 +43,7 @@ public class Player {
 		direction= "Right";
 		justAte = false;
 		lenght= 1;
-		score = 0;
+		score = 1;
 		steps = 0;
 
 	}
@@ -139,16 +139,18 @@ public class Player {
 
 		if(handler.getWorld().appleLocation[xCoord][yCoord] && Apple.isGood()){
 			Eat();
-			this.setJustAte(true);
+			setJustAte(true);
 			score += Math.sqrt(2 * score + 1); // adds score when snake eats apple
 			speedBoundary -= 0 + 1; //increases speed each time the snake eats
 		}
 		if(handler.getWorld().appleLocation[xCoord][yCoord] && !Apple.isGood()){
 			Eat();
-			this.setJustAte(true);
+			setJustAte(true);
+			Apple.setGood(true);
 			score -= Math.sqrt(2*score + 1);
+			handler.getWorld().playerLocation[handler.getWorld().body.getLast().x][handler.getWorld().body.getLast().y]=false;
 			handler.getWorld().body.removeLast();
-		}
+}
 
 
 		if(!handler.getWorld().body.isEmpty()) {
@@ -178,6 +180,7 @@ public class Player {
 		if(handler.getWorld().player.justAte) { // resets the steps 
 			steps = 0;
 			setJustAte(false);
+			Apple.setGood(true);
 			setAppleColor(Color.RED);
 		}
 
