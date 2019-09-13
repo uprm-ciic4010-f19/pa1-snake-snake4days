@@ -8,6 +8,7 @@ import java.awt.event.KeyEvent;
 import java.util.Random;
 
 import Game.Entities.Static.Apple;
+import Game.Entities.Static.Pear;
 import Game.GameStates.State;
 
 /**
@@ -186,6 +187,11 @@ public class Player {
 
 	}
 	
+	public void pearPowerUo() {
+		if(lenght >= 10) {
+			Pear pear  = new Pear(handler,handler.getWorld().GridWidthHeightPixelCount - 1, handler.getWorld().GridWidthHeightPixelCount - 1);
+		}
+	}
 
 	public void render(Graphics g,Boolean[][] playeLocation){
 		
@@ -225,6 +231,14 @@ public class Player {
 							handler.getWorld().GridPixelsize,
 							handler.getWorld().GridPixelsize);
 				}
+				
+//				if(handler.getWorld().pearLocation[i][j] && score>=20) {
+//					g.setColor(Color.GREEN);
+//					g.fillOval((i*handler.getWorld().GridPixelsize),
+//							(j*handler.getWorld().GridPixelsize),
+//							handler.getWorld().GridPixelsize,
+//							handler.getWorld().GridPixelsize);
+//				}
 
 			}
 		}
