@@ -198,7 +198,7 @@ public class Player {
 		//score board
 		g.setFont(new Font("Futura LT", Font.BOLD, 20));
 		g.setColor(Color.BLACK);
-		g.drawString("Score: " + (int) score, 630, 20);
+		g.drawString("Score: " + (int) score, 630, 40);
 
 		for (int i = 0; i < handler.getWorld().GridWidthHeightPixelCount; i++) {
 			for (int j = 0; j < handler.getWorld().GridWidthHeightPixelCount; j++) {

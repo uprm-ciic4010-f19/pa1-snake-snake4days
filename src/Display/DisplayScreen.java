@@ -43,13 +43,13 @@ public class DisplayScreen {
             e.printStackTrace();
         }
 
-        Color grey = new Color(245, 245, 245); //Creates new grey color instance in RGB
+        Color black = new Color(50, 47, 53); //Creates new black color instance in RGB
         canvas = new Canvas();
         canvas.setPreferredSize(new Dimension(width, height));
         canvas.setMaximumSize(new Dimension(width, height));
         canvas.setMinimumSize(new Dimension(width, height));
         canvas.setFocusable(false);
-        canvas.setBackground(grey);
+        canvas.setBackground(black);
 
         frame.add(canvas);
         frame.pack();
