@@ -152,10 +152,11 @@ public class Player {
 			handler.getWorld().playerLocation[handler.getWorld().body.getLast().x][handler.getWorld().body.getLast().y]=false;
 			handler.getWorld().body.removeLast();
 }
-//		if(handler.getWorld().pearLocation[xCoord][yCoord]) {
-//			Eat();
-//			lenght += 2;
-//		}
+		if(handler.getWorld().pearLocation[xCoord][yCoord]) {
+			Eat();
+			lenght += 2;
+			
+		}
 
 
 		if(!handler.getWorld().body.isEmpty()) {
@@ -233,10 +234,10 @@ public class Player {
 							handler.getWorld().GridPixelsize);
 				}
 				
-				if(handler.getWorld().pearOnBoard && score>=20) {
+				if(handler.getWorld().pearLocation[i][j] && score>=20) {
 					g.setColor(Color.GREEN);
-					g.fillOval((handler.getWorld().GridPixelsize),
-							(handler.getWorld().GridPixelsize),
+					g.fillOval((i*handler.getWorld().GridPixelsize),
+							(j*handler.getWorld().GridPixelsize),
 							handler.getWorld().GridPixelsize,
 							handler.getWorld().GridPixelsize);
 				}
