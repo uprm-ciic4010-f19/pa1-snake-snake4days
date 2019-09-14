@@ -7,6 +7,10 @@ import UI.UIManager;
 
 import java.awt.*;
 
+import com.sun.javafx.geom.Point2D;
+
+import Display.BackgroundGradient;
+
 /**
  * Created by AlexVR on 7/1/2018.
  */
@@ -51,6 +55,15 @@ public class PauseState extends State {
 
     @Override
     public void render(Graphics g) {
+    	
+    	//Adds new background gradient
+    	BackgroundGradient gradient = new BackgroundGradient();
+    	//Gradient colors desired Starting Points
+    	Point2D BottomLeft = new Point2D(0, 780);
+		Point2D TopRight = new Point2D(780, 0);
+    	//paints/renders the gradient
+    	gradient.paint(g, BottomLeft, new Color(255, 240, 241), TopRight, new Color(84, 81, 87));
+    	
         g.drawImage(Images.Pause,0,0,780,390,null);
         uiManager.Render(g);
 

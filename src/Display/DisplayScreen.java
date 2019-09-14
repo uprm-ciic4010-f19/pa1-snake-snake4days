@@ -43,13 +43,16 @@ public class DisplayScreen {
             e.printStackTrace();
         }
 
-        Color black = new Color(50, 47, 53); //Creates new black color instance in RGB
+
         canvas = new Canvas();
         canvas.setPreferredSize(new Dimension(width, height));
         canvas.setMaximumSize(new Dimension(width, height));
         canvas.setMinimumSize(new Dimension(width, height));
         canvas.setFocusable(false);
-        canvas.setBackground(black);
+        
+        //This was replaced for the gradient
+        //Color black = new Color(50, 47, 53); //Creates new black color instance in RGB
+        //canvas.setBackground(black);
 
         frame.add(canvas);
         frame.pack();
