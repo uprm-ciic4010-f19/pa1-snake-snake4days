@@ -60,15 +60,19 @@ public abstract class WorldBase {
 
     public void render(Graphics g){
 
-        for (int i = 0; i <= 780; i = i + GridPixelsize) {
-        	
-        	Color transparent = new Color(0 , 0, 0, 0); //creates new transparent color instance in sRGB
-            g.setColor(transparent); //sets color to transparent
-            g.drawLine(0, i, handler.getWidth() , i);
-            g.drawLine(i,0,i,handler.getHeight());
+    	//grid no longer needed so it wont be rendered
+    	//for (int i = 0; i <= 780; i = i + GridPixelsize) {
 
-        }
+    	//	Color transparent = new Color(0 , 0, 0, 0); //creates new transparent color instance in sRGB
+    	//    g.setColor(transparent); //sets color to transparent
+    	//    g.drawLine(0, i, handler.getWidth() , i);
+    	//    g.drawLine(i,0,i,handler.getHeight());
+    	//}
 
+    	//score board
+    	g.setFont(new Font("Futura LT", Font.BOLD, 20));
+    	g.setColor(Color.BLACK);
+    	g.drawString("Score: " + (int) player.score, 630, 40);
 
 
     }

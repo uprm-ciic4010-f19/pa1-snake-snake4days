@@ -44,7 +44,7 @@ public class Player {
 		direction= "Right";
 		justAte = false;
 		lenght= 1;
-		score = 1;
+		score = 0;
 		steps = 0;
 
 	}
@@ -71,6 +71,7 @@ public class Player {
 		}if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_RIGHT) && (direction != "Left")){
 			direction="Right";
 		}
+		
 		// adds tail at the end of the snake when you press N
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_N)) {
 			lenght ++;
@@ -96,6 +97,12 @@ public class Player {
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_G)) {
 			State.setState(handler.getGame().gameOverState); 
 		}
+		
+		//P key adds score for debugging
+		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_P)) {
+			score++; 
+		}
+				
 		checkApple();
 
 	}
@@ -139,21 +146,33 @@ public class Player {
 
 
 		if(handler.getWorld().appleLocation[xCoord][yCoord] && Apple.isGood()){
+			
 			Eat();
 			setJustAte(true);
 			score += Math.sqrt(2 * score + 1); // adds score when snake eats apple
 			speedBoundary -= 0 + 1; //increases speed each time the snake eats
+			
 		}
 		if(handler.getWorld().appleLocation[xCoord][yCoord] && !Apple.isGood()){
-			Eat();
-			setJustAte(true);
-			Apple.setGood(true);
-			score -= Math.sqrt(2*score + 1);
-			handler.getWorld().playerLocation[handler.getWorld().body.getLast().x][handler.getWorld().body.getLast().y]=false;
-			handler.getWorld().body.removeLast();
-}
+			
+			//if just one body part game is over
+			if (lenght == 1) {
+				Eat();
+				setJustAte(true);
+				Apple.setGood(true);
+				State.setState(handler.getGame().gameOverState);
+			} else { //else remove from body
+				Eat();
+				setJustAte(true);
+				Apple.setGood(true);
+				score -= Math.sqrt(2*score + 1);
+				handler.getWorld().playerLocation[handler.getWorld().body.getLast().x][handler.getWorld().body.getLast().y]=false;
+				handler.getWorld().body.removeLast();
+			}
+		}
 		if(handler.getWorld().pearLocation[xCoord][yCoord]) {
 			Eat();
+			score += Math.sqrt(3 * score + 1); //pear gives more points and doesnt add body part 
 			lenght += 2;
 			
 		}
@@ -202,11 +221,6 @@ public class Player {
 		int R = r.nextInt(256);
 		int G = r.nextInt(256);
 		int B = r.nextInt(256);
-		
-		//score board
-		g.setFont(new Font("Futura LT", Font.BOLD, 20));
-		g.setColor(Color.BLACK);
-		g.drawString("Score: " + (int) score, 630, 40);
 
 		for (int i = 0; i < handler.getWorld().GridWidthHeightPixelCount; i++) {
 			for (int j = 0; j < handler.getWorld().GridWidthHeightPixelCount; j++) {
@@ -215,7 +229,7 @@ public class Player {
 					
 					//if setting set to true
 					if (Launch.isSolidColor()) {
-						g.setColor(Color.green); //sets snake color to green
+						g.setColor(Color.green.darker()); //sets snake color to green
 					} else {
 						g.setColor(new Color(R,G,B)); //otherwise snake has random colors
 					}
@@ -250,11 +264,16 @@ public class Player {
 	public void Eat(){
 		lenght++;
 		Tail tail= null;
-		handler.getWorld().appleLocation[xCoord][yCoord]=false;
-		handler.getWorld().appleOnBoard=false;
+		
+		if(handler.getWorld().appleLocation[xCoord][yCoord]) {
+			handler.getWorld().appleLocation[xCoord][yCoord]=false;
+			handler.getWorld().appleOnBoard=false;
+		} else {
 		 
-		handler.getWorld().pearLocation[xCoord][yCoord]=false;
-		handler.getWorld().pearOnBoard = false;
+			handler.getWorld().pearLocation[xCoord][yCoord]=false;
+			handler.getWorld().pearOnBoard = false;
+		
+		}
 		
 		if (Apple.isGood()) {
 		
