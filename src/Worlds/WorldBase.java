@@ -36,6 +36,7 @@ public abstract class WorldBase {
     
     public Pear pear;
     public Boolean[][] pearLocation;
+    public Boolean pearOnBoard;
 
 
     public Boolean[][] playerLocation;
@@ -47,6 +48,7 @@ public abstract class WorldBase {
         this.handler = handler;
 
         appleOnBoard = false;
+        pearOnBoard = false;
 
 
     }
@@ -58,7 +60,7 @@ public abstract class WorldBase {
 
     public void render(Graphics g){
 
-        for (int i = 0; i <= 800; i = i + GridPixelsize) {
+        for (int i = 0; i <= 780; i = i + GridPixelsize) {
         	
         	Color transparent = new Color(0 , 0, 0, 0); //creates new transparent color instance in sRGB
             g.setColor(transparent); //sets color to transparent
