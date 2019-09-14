@@ -152,6 +152,10 @@ public class Player {
 			handler.getWorld().playerLocation[handler.getWorld().body.getLast().x][handler.getWorld().body.getLast().y]=false;
 			handler.getWorld().body.removeLast();
 }
+//		if(handler.getWorld().pearLocation[xCoord][yCoord]) {
+//			Eat();
+//			lenght += 2;
+//		}
 
 
 		if(!handler.getWorld().body.isEmpty()) {
@@ -171,6 +175,7 @@ public class Player {
 		}
 
 
+
 	}
 
 	public void checkApple() {
@@ -187,11 +192,7 @@ public class Player {
 
 	}
 	
-	public void pearPowerUo() {
-		if(lenght >= 10) {
-			Pear pear  = new Pear(handler,handler.getWorld().GridWidthHeightPixelCount - 1, handler.getWorld().GridWidthHeightPixelCount - 1);
-		}
-	}
+	
 
 	public void render(Graphics g,Boolean[][] playeLocation){
 		
@@ -232,13 +233,13 @@ public class Player {
 							handler.getWorld().GridPixelsize);
 				}
 				
-//				if(handler.getWorld().pearLocation[i][j] && score>=20) {
-//					g.setColor(Color.GREEN);
-//					g.fillOval((i*handler.getWorld().GridPixelsize),
-//							(j*handler.getWorld().GridPixelsize),
-//							handler.getWorld().GridPixelsize,
-//							handler.getWorld().GridPixelsize);
-//				}
+				if(handler.getWorld().pearOnBoard && score>=20) {
+					g.setColor(Color.GREEN);
+					g.fillOval((handler.getWorld().GridPixelsize),
+							(handler.getWorld().GridPixelsize),
+							handler.getWorld().GridPixelsize,
+							handler.getWorld().GridPixelsize);
+				}
 
 			}
 		}
@@ -250,6 +251,9 @@ public class Player {
 		Tail tail= null;
 		handler.getWorld().appleLocation[xCoord][yCoord]=false;
 		handler.getWorld().appleOnBoard=false;
+		 
+		handler.getWorld().pearLocation[xCoord][yCoord]=false;
+		handler.getWorld().pearOnBoard = false;
 		
 		if (Apple.isGood()) {
 		

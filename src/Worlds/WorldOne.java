@@ -1,6 +1,7 @@
 package Worlds;
 
 import Game.Entities.Static.Apple;
+import Game.Entities.Static.Pear;
 import Main.Handler;
 
 import java.awt.*;
@@ -19,6 +20,7 @@ public class WorldOne extends WorldBase{
         GridPixelsize = (780/GridWidthHeightPixelCount);
         playerLocation = new Boolean[GridWidthHeightPixelCount][GridWidthHeightPixelCount];
         appleLocation = new Boolean[GridWidthHeightPixelCount][GridWidthHeightPixelCount];
+        pearLocation = new Boolean[GridWidthHeightPixelCount][GridWidthHeightPixelCount];
 
     }
 
@@ -43,6 +45,22 @@ public class WorldOne extends WorldBase{
             appleLocation[appleX][appley]=true;
 
         }
+        if(!pearOnBoard && handler.getWorld().player.score >= 20){
+            pearOnBoard=true;
+            int pearX = new Random().nextInt(handler.getWorld().GridWidthHeightPixelCount-1);
+            int pearY = new Random().nextInt(handler.getWorld().GridWidthHeightPixelCount-1);
+
+            //change coordinates till one is selected in which the player isnt standing
+            boolean goodCoordinates=false;
+            do{
+                if(!handler.getWorld().playerLocation[pearX][pearY]){
+                    goodCoordinates=true;
+                }
+            }while(!goodCoordinates);
+
+            pear = new Pear(handler, pearX, pearY);
+            pearLocation[pearX][pearY]=true;
+    }
     }
 
     @Override
